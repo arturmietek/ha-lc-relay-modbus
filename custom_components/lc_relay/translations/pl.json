@@ -119,9 +119,9 @@
   "selector": {
     "parity": {
       "options": {
-        "N": "Brak",
-        "E": "Parzysta",
-        "O": "Nieparzysta"
+        "none": "Brak",
+        "even": "Parzysta",
+        "odd": "Nieparzysta"
       }
     }
   }

@@ -17,6 +17,7 @@ from .const import (
     DEFAULT_BAUDRATE,
     DEFAULT_PARITY,
     DEFAULT_STOPBITS,
+    PARITIES,
     TYPE_SERIAL,
     TYPE_TCP,
 )
@@ -32,7 +33,7 @@ def modbus_params(data: Mapping[str, Any]) -> ModbusTcpParams | ModbusSerialPara
         return ModbusSerialParams(
             device=data[CONF_DEVICE],
             baudrate=data.get(CONF_BAUDRATE, DEFAULT_BAUDRATE),
-            parity=data.get(CONF_PARITY, DEFAULT_PARITY),
+            parity=PARITIES[data.get(CONF_PARITY, DEFAULT_PARITY)],
             stopbits=data.get(CONF_STOPBITS, DEFAULT_STOPBITS),
         )
     return ModbusTcpParams(host=data[CONF_HOST], port=data[CONF_PORT])

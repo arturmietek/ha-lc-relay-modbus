@@ -50,6 +50,7 @@ from .const import (
     DOMAIN,
     MAX_SCAN_INTERVAL,
     MIN_SCAN_INTERVAL,
+    PARITIES,
     TYPE_SERIAL,
     TYPE_TCP,
 )
@@ -106,7 +107,7 @@ STEP_SERIAL_SCHEMA = vol.Schema(
             _choice([str(rate) for rate in BAUD_RATES.values()]), vol.Coerce(int)
         ),
         vol.Required(CONF_PARITY, default=DEFAULT_PARITY): _choice(
-            ["N", "E", "O"], CONF_PARITY
+            list(PARITIES), CONF_PARITY
         ),
         vol.Required(CONF_STOPBITS, default=str(DEFAULT_STOPBITS)): vol.All(
             _choice(["1", "2"]), vol.Coerce(int)

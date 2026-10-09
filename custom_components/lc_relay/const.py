@@ -21,7 +21,9 @@ CONF_SCAN_INTERVAL: Final = "scan_interval"
 DEFAULT_PORT: Final = 502
 DEFAULT_BAUDRATE: Final = 9600
 """Factory baud rate of the board."""
-DEFAULT_PARITY: Final = "N"
+DEFAULT_PARITY: Final = "none"
+PARITIES: Final = {"none": "N", "even": "E", "odd": "O"}
+"""Parity option to the letter modbus-connection takes."""
 DEFAULT_STOPBITS: Final = 1
 DEFAULT_UNIT_ID: Final = 255
 """Factory address of the board."""

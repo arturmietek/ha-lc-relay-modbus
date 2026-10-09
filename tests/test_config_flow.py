@@ -36,7 +36,7 @@ SERIAL_PORT = "/dev/serial/by-id/usb-1a86_USB_Single_Serial-if00"
 SERIAL_INPUT = {
     CONF_DEVICE: SERIAL_PORT,
     CONF_BAUDRATE: "9600",
-    CONF_PARITY: "N",
+    CONF_PARITY: "none",
     CONF_STOPBITS: "1",
     CONF_UNIT_ID: UNIT_ID,
     CONF_CHANNELS: 2,
@@ -128,7 +128,7 @@ async def test_serial_settings_must_match_the_port_holder(
 
 
 @pytest.mark.parametrize(
-    ("field", "value"), [(CONF_BAUDRATE, "115200"), (CONF_PARITY, "X")]
+    ("field", "value"), [(CONF_BAUDRATE, "115200"), (CONF_PARITY, "N")]
 )
 async def test_serial_rejects_unsupported_settings(
     hass: HomeAssistant, unit: MockModbusUnit, field: str, value: str
