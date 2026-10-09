@@ -1,0 +1,128 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "LC Technology relay board",
+        "description": "Set up the relay board by choosing the bus type, then the number of relays and digital inputs.",
+        "menu_options": {
+          "existing": "Connection already in use",
+          "tcp": "Network (Modbus TCP gateway)",
+          "serial": "Serial port (Modbus RTU)"
+        }
+      },
+      "tcp": {
+        "title": "Board behind a Modbus TCP gateway",
+        "data": {
+          "host": "Gateway host",
+          "port": "Gateway port",
+          "unit_id": "Unit ID",
+          "channels": "Relay channels on the board"
+        },
+        "data_description": {
+          "host": "Address of the Modbus TCP gateway the board's RS-485 line is wired to.",
+          "unit_id": "Modbus address of the board. Factory default is 255.",
+          "channels": "1, 2, 4 or 8 depending on the variant. The same count of inputs is exposed."
+        }
+      },
+      "serial": {
+        "title": "Board on a serial port",
+        "description": "Integrations sharing one serial port share one connection, so every one of them must use the same baud rate, parity and stop bits.",
+        "data": {
+          "device": "Serial port",
+          "baudrate": "Baud rate",
+          "parity": "Parity",
+          "stopbits": "Stop bits",
+          "unit_id": "Unit ID",
+          "channels": "Relay channels on the board"
+        },
+        "data_description": {
+          "device": "The USB RS-485 adapter the board is wired to.",
+          "baudrate": "As set on the board; the factory default is 9600.",
+          "unit_id": "Modbus address of the board. Factory default is 255.",
+          "channels": "1, 2, 4 or 8 depending on the variant. The same count of inputs is exposed."
+        }
+      },
+      "existing": {
+        "title": "Connection already in use",
+        "description": "Gateways and serial ports Home Assistant already talks to, with the integrations using them. The board shares that connection.",
+        "data": {
+          "link": "Connection"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "The board did not answer. Check the gateway address, the unit ID and the wiring.",
+      "link_conflict": "This gateway or port is already in use by another integration with different link settings."
+    },
+    "abort": {
+      "already_configured": "This board is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "channels": "Relay channels on the board",
+          "scan_interval": "Poll interval"
+        },
+        "data_description": {
+          "channels": "Lowering it removes the entities of the dropped channels."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "input": {
+        "name": "Input {channel}"
+      }
+    },
+    "sensor": {
+      "baud_rate": {
+        "name": "Baud rate",
+        "state": {
+          "4800": "4800 bps",
+          "9600": "9600 bps",
+          "19200": "19200 bps"
+        }
+      },
+      "unit_id": {
+        "name": "Modbus address"
+      }
+    },
+    "switch": {
+      "relay": {
+        "name": "Relay {channel}"
+      }
+    }
+  },
+  "exceptions": {
+    "update_failed": {
+      "message": "Could not read the relay board: {error}"
+    },
+    "write_failed": {
+      "message": "Could not switch {entity}: {error}"
+    }
+  },
+  "services": {
+    "pulse": {
+      "name": "Pulse",
+      "description": "Turns a relay on and lets the board turn it off again after the duration. The board times the pulse itself, so it ends even if the connection drops.",
+      "fields": {
+        "duration": {
+          "name": "Duration",
+          "description": "How long the relay stays on, in seconds (0.1 s resolution)."
+        }
+      }
+    }
+  },
+  "selector": {
+    "parity": {
+      "options": {
+        "N": "None",
+        "E": "Even",
+        "O": "Odd"
+      }
+    }
+  }
+}

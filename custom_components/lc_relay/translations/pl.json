@@ -1,0 +1,128 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Płytka przekaźników LC Technology",
+        "description": "Skonfiguruj płytkę przekaźników, wybierając typ magistrali oraz liczbę przekaźników i wejść cyfrowych.",
+        "menu_options": {
+          "existing": "Połączenie już używane",
+          "tcp": "Sieć (bramka Modbus TCP)",
+          "serial": "Port szeregowy (Modbus RTU)"
+        }
+      },
+      "tcp": {
+        "title": "Płytka za bramką Modbus TCP",
+        "data": {
+          "host": "Host bramki",
+          "port": "Port bramki",
+          "unit_id": "Unit ID",
+          "channels": "Liczba kanałów przekaźników"
+        },
+        "data_description": {
+          "host": "Adres bramki Modbus TCP, do której podłączona jest linia RS-485 płytki.",
+          "unit_id": "Adres Modbus płytki. Fabrycznie 255.",
+          "channels": "1, 2, 4 lub 8 zależnie od wariantu. Tyle samo wejść zostanie udostępnionych."
+        }
+      },
+      "serial": {
+        "title": "Płytka na porcie szeregowym",
+        "description": "Integracje na jednym porcie szeregowym współdzielą jedno połączenie, więc wszystkie muszą używać tej samej prędkości, parzystości i bitów stopu.",
+        "data": {
+          "device": "Port szeregowy",
+          "baudrate": "Prędkość transmisji",
+          "parity": "Parzystość",
+          "stopbits": "Bity stopu",
+          "unit_id": "Unit ID",
+          "channels": "Liczba kanałów przekaźników"
+        },
+        "data_description": {
+          "device": "Adapter USB RS-485, do którego podłączona jest płytka.",
+          "baudrate": "Taka, jak ustawiona w płytce; fabrycznie 9600.",
+          "unit_id": "Adres Modbus płytki. Fabrycznie 255.",
+          "channels": "1, 2, 4 lub 8 zależnie od wariantu. Tyle samo wejść zostanie udostępnionych."
+        }
+      },
+      "existing": {
+        "title": "Połączenie już używane",
+        "description": "Bramki i porty szeregowe, z którymi Home Assistant już się komunikuje, wraz z używającymi ich integracjami. Płytka współdzieli to połączenie.",
+        "data": {
+          "link": "Połączenie"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Płytka nie odpowiedziała. Sprawdź adres bramki, Unit ID i okablowanie.",
+      "link_conflict": "Ta bramka lub port jest już używany przez inną integrację z innymi ustawieniami połączenia."
+    },
+    "abort": {
+      "already_configured": "Ta płytka jest już skonfigurowana."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "channels": "Liczba kanałów przekaźników",
+          "scan_interval": "Interwał odpytywania"
+        },
+        "data_description": {
+          "channels": "Zmniejszenie usuwa encje odciętych kanałów."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "input": {
+        "name": "Wejście {channel}"
+      }
+    },
+    "sensor": {
+      "baud_rate": {
+        "name": "Prędkość transmisji",
+        "state": {
+          "4800": "4800 bps",
+          "9600": "9600 bps",
+          "19200": "19200 bps"
+        }
+      },
+      "unit_id": {
+        "name": "Adres Modbus"
+      }
+    },
+    "switch": {
+      "relay": {
+        "name": "Przekaźnik {channel}"
+      }
+    }
+  },
+  "exceptions": {
+    "update_failed": {
+      "message": "Nie udało się odczytać płytki przekaźników: {error}"
+    },
+    "write_failed": {
+      "message": "Nie udało się przełączyć {entity}: {error}"
+    }
+  },
+  "services": {
+    "pulse": {
+      "name": "Impuls",
+      "description": "Włącza przekaźnik, a płytka sama wyłącza go po zadanym czasie — impuls kończy się nawet przy zerwaniu połączenia.",
+      "fields": {
+        "duration": {
+          "name": "Czas trwania",
+          "description": "Jak długo przekaźnik ma być włączony, w sekundach (rozdzielczość 0,1 s)."
+        }
+      }
+    }
+  },
+  "selector": {
+    "parity": {
+      "options": {
+        "N": "Brak",
+        "E": "Parzysta",
+        "O": "Nieparzysta"
+      }
+    }
+  }
+}

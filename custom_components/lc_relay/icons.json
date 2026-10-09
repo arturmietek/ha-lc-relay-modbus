@@ -1,0 +1,22 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "input": {
+        "default": "mdi:import"
+      }
+    },
+    "sensor": {
+      "baud_rate": {
+        "default": "mdi:speedometer"
+      },
+      "unit_id": {
+        "default": "mdi:identifier"
+      }
+    }
+  },
+  "services": {
+    "pulse": {
+      "service": "mdi:timer-outline"
+    }
+  }
+}

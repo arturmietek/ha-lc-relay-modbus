@@ -1,0 +1,5 @@
+{
+  "name": "LC Technology Modbus Relay",
+  "homeassistant": "2026.10.0",
+  "render_readme": true
+}

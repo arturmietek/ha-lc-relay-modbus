@@ -1,0 +1,23 @@
+[project]
+name = "ha-lc-relay-modbus"
+version = "0.1.0"
+description = "Home Assistant integration for Shenzhen LC Technology Modbus relay boards"
+requires-python = ">=3.13"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+combine-as-imports = true
+known-first-party = ["homeassistant"]
+known-local-folder = ["custom_components"]
