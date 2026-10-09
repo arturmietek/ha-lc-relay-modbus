@@ -1,13 +1,13 @@
 {
   "domain": "lc_relay",
   "name": "LC Technology Modbus Relay",
-  "codeowners": [],
+  "codeowners": ["@arturmietek"],
   "config_flow": true,
   "dependencies": ["modbus"],
-  "documentation": "https://github.com/mentos/ha-lc-relay-modbus",
+  "documentation": "https://github.com/arturmietek/ha-lc-relay-modbus",
   "integration_type": "device",
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/mentos/ha-lc-relay-modbus/issues",
+  "issue_tracker": "https://github.com/arturmietek/ha-lc-relay-modbus/issues",
   "loggers": ["modbus_connection", "tmodbus"],
   "requirements": ["modbus-connection[tmodbus]>=4.12.3"],
   "version": "0.1.0"
